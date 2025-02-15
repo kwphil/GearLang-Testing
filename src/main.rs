@@ -1,23 +1,34 @@
-use nom::{
-    character::complete::{char, digit1},
-    combinator::{map_res, recognize},
-    IResult,
-};
+mod bin_op;
+mod num;
 
-fn parse_number(input: &str) -> IResult<&str, i32> {
-    map_res(recognize(digit1), str::parse)(input)
-}
+use nom::IResult;
 
-fn parse_addition(input: &str) -> IResult<&str, i32> {
-    let (input, (lhs, _, rhs)) = tupl((parse_number, char('+'), parse_number))(input)?;
-    Ok((input, lhs + rhs))
-}
+pub use bin_op::*;
+pub use num::*;
 
 fn main() {
-    let expr = "12+34";
 
-    match parse_addition(expr) {
-        Ok((_, result)) => println!("Result: {}", result),
-        Err(err) => println!("Error: {:?}", err),
+}
+
+pub trait Expression {
+    fn new(input: &str) -> IResult<&str, Box<Self>>; 
+}
+
+#[cfg(test)]
+mod test {
+    use crate::*;
+
+    #[test]
+    fn parse_num() {
+        assert_eq!(Number::new("42"), Ok(("", Box::new(Number::Integer(42)))))
+    }
+
+    #[test]
+    fn parse_expr() {
+        assert_eq!(BinaryOperation::new("42   +12"), Ok(("", Box::new(BinaryOperation {
+            left: Box::new(Number::Integer(42)),
+            operator: BinaryOperator::Add,
+            right: Box::new(Number::Integer(12)),
+        }))));
     }
 }
