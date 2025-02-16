@@ -1,8 +1,0 @@
-[package]
-name = "gearlang"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-nom = "7.1.1"
-nom-supreme = "0.8.0"
