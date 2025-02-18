@@ -1,3 +1,5 @@
+// "main" -*- C++ -*-
+
 // This file is part of the GearLang v0.0.1 executable. This library is free
 // software; you can redistribute it and/or modify it under the terms
 // of the GNU General Public License as published by the Free Software
@@ -18,13 +20,23 @@
 // <http://www.gnu.org/licenses/>.
 
 #include <iostream>
-#include <span>
+#include <fstream>
+#include <sstream>
+#include "token"
+#include "parser"
 
 int main(int argc, char *argv[]) {
     std::string filename = argv[1];
+    std::string output;
+
+    // Getting the file contents
+    std::ifstream filestream(filename);
+    std::stringstream buf;
+    buf << filestream.rdbuf();
+    output = buf.str();
 
     // First need to start by tokenizing the input
-    
+    Parser parser(output);
     
     return EXIT_SUCCESS;
 }

@@ -21,9 +21,10 @@
 
 #pragma once
 
+#include <functional>
 #include <optional>
-#include <tuple>
 #include <string> 
+#include <tuple>
 
 /**
  * Token namespace
@@ -68,12 +69,51 @@ namespace Token {
         template <typename T>
         static Token::Result<T> try_parse(std::string& input);
     };
+
+    static const std::vector<std::function<Token::Result<Token::Base>(std::string&)>> 
+    PARSERS {
+        Number::try_parse,
+    };
 }
 
-class Number : Token::Base {
-public:
-    Number(int value);
-    int get_value();
-    std::string get_type();
-    Token::Result<Number> try_parse(std::string& input);
+class Number : public Token::Base {
+private:
+    int value;
+
+public: 
+    Number(int value) {
+        (*this).value = value;
+    }
+
+    // If can't parse, it will throw a null
+    static Token::Result<Number> try_parse(std::string& input) {
+        std::string ret = "";
+        std::string::iterator it;
+        
+        for(it = input.begin(); it < input.end(); ++it) {
+            char c = *it;
+
+            if(!std::isdigit(c)) {
+                break;
+            }
+
+            ret.push_back(c);
+        }
+
+        /* If no chars were parsed return null */
+        if(ret == "") {
+            return std::nullopt;
+        }
+
+        auto ret_wrap = std::make_tuple(Number(std::stoi(ret)), std::string(it, input.end()));
+        return std::make_optional(ret_wrap);
+    }
+
+    int get_value() {
+        return value;
+    }
+
+    std::string get_type() {
+        return "Number";    
+    }
 };

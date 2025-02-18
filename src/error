@@ -1,0 +1,68 @@
+// <gearlang/error> -*- C++ -*-
+
+// This file is part of the GearLang v0.0.1 executable. This library is free
+// software; you can redistribute it and/or modify it under the terms
+// of the GNU General Public License as published by the Free Software
+// Foundation; either version 3, or (at your option) any later version.
+
+// This executable is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details. 
+
+// Under Section 7 of GPL version 3, you are granted additional
+// permissions described in the GCC Runtime Library Exception, version
+// 3.1, as published by the Free Software Foundation.
+
+// You should have received a copy of the GNU General Public License and
+// a copy of the GCC Runtime Library Exception along with this program;
+// See <https://www.gnu.org/licenses/>.
+
+#include <system_error>
+
+/**
+ * List of error codes specifically tailored to gearlang
+ * 
+ * Ok = Success
+ * FileNotFound = Could not open file
+ * Eof = Unexpected EOF
+ * UnexpectedToken = Couldn't match the token
+ */
+enum class ErrorCode {
+    Ok,
+    FileNotFound,
+    Eof,
+    UnexpectedToken,
+};
+
+class ErrorCategory : public std::error_category {
+public: 
+    const char* name() const noexcept override {
+        return "Gearlang ErrorCategory";
+    }
+
+    std::string message(int ev) const override {
+        switch(static_cast<ErrorCode>(ev)) {
+            case ErrorCode::Ok:                 return "Success";
+            case ErrorCode::FileNotFound:       return "File Not Found";
+            case ErrorCode::Eof:                return "Unexpected End of File";
+            case ErrorCode::UnexpectedToken:    return "Unexpected Token";
+
+            default: return "Unknown Error";
+        }
+    }
+};
+
+const std::error_category& gearlang_error_category() {
+    static ErrorCategory instance;
+    return instance;
+}
+
+std::error_code make_error_code(ErrorCode e) {
+    return { static_cast<int>(e), gearlang_error_category() };
+}
+
+namespace std {
+    template <>
+    struct is_error_code_enum<ErrorCode> : true_type {};
+}

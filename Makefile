@@ -8,7 +8,7 @@ TOKEN_DIR   := $(SRC_DIR)/token
 TOKEN_BUILD := $(BUILD_DIR)/token
 
 GXX         := g++
-CXX_FLAGS   := -std=c++20 -Iinclude -Wall
+CXX_FLAGS   := -std=c++20 -Wall
 CXX_SOURCES := $(wildcard $(SRC_DIR)/*.cpp)
 
 EXEC        := $(BUILD_DIR)/a.out
