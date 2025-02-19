@@ -36,12 +36,9 @@ int main(int argc, char *argv[]) {
         return std_gearlang::Error::cerr(std_gearlang::ErrorCode::NoFileSelected);
     }
 
-    std::string input = "a1234 b";
+    std::string input = "exit 0;";
 
-    auto [ identifier, left ] = std_gearlang::get_identifier(input);
-
-    std::cout << identifier << std::endl << left << std::endl;
-    std::cout << std_gearlang::consume_whitespace(left);
+    
 
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);

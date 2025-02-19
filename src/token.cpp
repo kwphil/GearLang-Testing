@@ -22,8 +22,9 @@
 #pragma once
 
 #include <format>
-#include <string>
+#include <memory>
 #include <optional>
+#include <string>
 #include <tuple>
 
 namespace std_gearlang {
@@ -72,18 +73,41 @@ namespace std_gearlang::token {
     class Base {
     public:
         virtual ~Base() = default;
-        virtual std_gearlang::Result<Base&> try_parse(std::string_view input) const = 0;
-        virtual std::string type() const = 0;
+        virtual inline std::string type() const = 0;
+        virtual std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input) const = 0;
     };
 
     class Return : public Base {
     public:
-        virtual std_gearlang::Result<Base&> try_parse(std::string_view input) const override {
-            const auto [ identifier, new_input ] = std_gearlang::get_identifier(input);
+        std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input) const override {
+            auto [ identifier, new_input ] = std_gearlang::get_identifier(input);
 
             if(identifier == "return") {
-                return std::make_tuple(Return(), new_input);
+                return std::make_tuple(std::make_shared<Return>(), new_input);
             }
+
+            return std::nullopt;
+        }
+
+        inline std::string type() const override {
+            return "return";
+        }
+    };
+
+    class Exit : public Base {
+    public:
+        std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input) const override {
+            auto [ identifier, new_input ] = std_gearlang::get_identifier(input);
+
+            if(identifier == "exit") {
+                return std::make_tuple(std::make_shared<Exit>(), new_input);
+            }
+
+            return std::nullopt;
+        }
+
+        inline std::string type() const override {
+            return "exit";
         }
     };
 }
