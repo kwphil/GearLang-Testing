@@ -1,5 +1,9 @@
 {
     "files.associations": {
+        "*.ttml": "xml",
+        "*.ttss": "css",
+        "iostream": "cpp",
+        "fstream": "cpp",
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -21,6 +25,7 @@
         "unordered_map": "cpp",
         "vector": "cpp",
         "exception": "cpp",
+        "expected": "cpp",
         "algorithm": "cpp",
         "functional": "cpp",
         "iterator": "cpp",
@@ -36,22 +41,19 @@
         "utility": "cpp",
         "initializer_list": "cpp",
         "iosfwd": "cpp",
-        "iostream": "cpp",
         "istream": "cpp",
         "limits": "cpp",
         "new": "cpp",
         "numbers": "cpp",
         "ostream": "cpp",
         "span": "cpp",
+        "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "main": "cpp",
-        "fstream": "cpp",
-        "parser": "cpp",
-        "expected": "cpp",
-        "sstream": "cpp",
-        "token": "cpp",
-        "error": "cpp"
+        "charconv": "cpp",
+        "ctime": "cpp",
+        "format": "cpp",
+        "variant": "cpp"
     }
 }
