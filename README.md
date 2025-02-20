@@ -1,3 +1,5 @@
+# GearLang
+
 This is the main source code repository for GearLang. It will contain the std library, and docs.
 
 ## Why GearLang?
@@ -8,3 +10,28 @@ This is the main source code repository for GearLang. It will contain the std li
 ## License
 
 GearLang is primarily distributed under the terms of the GPL v3 License.
+
+## Examples
+
+```gear
+!include std::print
+
+fn main {
+    print "Hello, World!";
+    exit 0;
+}
+```
+
+```gear
+!include std::{
+    print,
+    string,
+}
+
+fn main {
+    greet "bob";
+    exit 0;
+}
+
+fn greet name:string => f"Hello, {name}!";
+```
