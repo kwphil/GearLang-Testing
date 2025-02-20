@@ -17,7 +17,7 @@
 //
 // You should have received a copy of the GNU General Public License and
 // a copy of the GCC Runtime Library Exception along with this program;
-// If not, see <http://www.gnu.org/licenses/>. 
+// If not, see <http://www.gnu.org/licenses/>.
 
 /// @file parser.cpp
 /// @brief Implements the parser for GearLang.
@@ -95,18 +95,22 @@ namespace std_gearlang {
             }
 
             // First clear whitespace
-            std_gearlang::consume_whitespace(input);
+            input = std_gearlang::consume_whitespace(input);
 
             // Attempt to match a token
             for (auto& parser : std_gearlang::token_types) {
                 auto output = check_parser(parser);
-                
+
                 if (output) {
                     return output;
                 }
             }
 
             return std::nullopt;
+        }
+
+        std::string_view get_input() {
+            return input;
         }
     };
 }

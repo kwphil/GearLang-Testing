@@ -17,7 +17,7 @@
 
 // You should have received a copy of the GNU General Public License and
 // a copy of the GCC Runtime Library Exception along with this program;
-// If not, see <http://www.gnu.org/licenses/>. 
+// If not, see <http://www.gnu.org/licenses/>.
 
 #include <fstream>
 #include <iostream>
@@ -34,8 +34,26 @@ int main(int argc, char *argv[]) {
     }
 
     std::string input = "exit 0;";
-    
+    std_gearlang::Parser parser(input);
+
+    auto output = parser.next_token();
+
+    if(!output) {
+        std::cout << "None";
+        return -1;
+    }
+
+    std::cout << (*output.value()).type() << std::endl;
+
+    output = parser.next_token();
+
+    if(!output) {
+        std::cout << parser.get_input();
+        return -1;
+    }
+
+    std::cout << (*output.value()).type() << std::endl;
+
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);
 }
-

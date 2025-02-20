@@ -17,7 +17,7 @@
 //
 // You should have received a copy of the GNU General Public License and
 // a copy of the GCC Runtime Library Exception along with this program;
-// If not, see <http://www.gnu.org/licenses/>. 
+// If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
@@ -48,7 +48,7 @@ namespace std_gearlang {
      */
     auto get_identifier(std::string_view input) -> std::tuple<std::string, std::string_view> {
         std::string collected_identifier = "";
-        
+
         // If the first character is not an alphabet, return empty identifier
         if(!isalpha(input[0])) {
             return { "", input };
@@ -56,7 +56,7 @@ namespace std_gearlang {
 
         // Start collecting the identifier
         collected_identifier.push_back(input[0]);
-        
+
         // Process the remaining characters of the input
         for(auto it = input.begin()+1; it < input.end(); ++it) {
             char c = *it;
@@ -116,8 +116,15 @@ namespace std_gearlang::token {
         virtual inline std::string type() const = 0;
 
         /**
+         * Returns a value
+         *
+         * If no value is needed, e.g. a keyword, just return type()
+         */
+        virtual inline std::string get_value() const = 0;
+
+        /**
          * Attempts to parse a token from the given input string.
-         * 
+         *
          * @param input The input string to parse.
          * @return A result containing the parsed token or nullopt if no token is matched.
          */
@@ -158,6 +165,10 @@ namespace std_gearlang::token {
         inline std::string type() const override {
             return "return";
         }
+
+        inline std::string get_value() const override {
+            return type();
+        }
     };
 
     /**
@@ -194,19 +205,41 @@ namespace std_gearlang::token {
         inline std::string type() const override {
             return "exit";
         }
+
+        inline std::string get_value() const override {
+            return type();
+        }
     };
 
     class Number : public Base {
-        static std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
-            
-            
-            for(auto& it = input.begin(); it < input.end(); ++it) {
+    private:
+        std::string value;
 
+    public:
+        Number(std::string val) {
+            value = val;
+        }
+
+        static std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
+            std::string val;
+
+            for(auto it = input.begin(); it < input.end(); ++it) {
+                if(!std::isdigit(*it)) {
+                    return std::make_tuple(std::make_shared<Number>(val), std::string_view(it, input.end()));
+                }
+
+                val.push_back(*it);
             }
+
+            return std::nullopt;
         }
 
         inline std::string type() const override {
             return "number";
         }
-    }
+
+        inline std::string get_value() const override {
+            return value;
+        }
+    };
 }
