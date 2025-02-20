@@ -111,3 +111,23 @@ namespace std_gearlang {
         }
     };
 }
+
+namespace std_gearlang::except {
+    class UnwrapResultError : public std::exception {
+    private:
+        char *message;
+    
+    public:
+        UnwrapResultError(char *value) {
+            message = value;
+        }
+
+        std::exception& operator= (const std::exception& e) noexcept {
+            message = e.what();
+        }
+
+        const char *what() const noexcept override {
+            return static_cast<const char *>(message);
+        }
+    }
+}
