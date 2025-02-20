@@ -19,14 +19,11 @@
 // a copy of the GCC Runtime Library Exception along with this program;
 // If not, see <http://www.gnu.org/licenses/>. 
 
-// File reading
 #include <fstream>
-// Debug
 #include <iostream>
-// Error enum
 #include "error.cpp"
-// Tokens
 #include "token.cpp"
+#include "parser.cpp"
 
 int main(int argc, char *argv[]) {
     // Making sure the file is present
@@ -38,7 +35,7 @@ int main(int argc, char *argv[]) {
 
     std::string input = "exit 0;";
 
-    
+
 
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);
