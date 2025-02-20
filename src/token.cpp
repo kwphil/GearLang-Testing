@@ -195,4 +195,18 @@ namespace std_gearlang::token {
             return "exit";
         }
     };
+
+    class Number : public Base {
+        static std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
+            
+            
+            for(auto& it = input.begin(); it < input.end(); ++it) {
+
+            }
+        }
+
+        inline std::string type() const override {
+            return "number";
+        }
+    }
 }

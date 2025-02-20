@@ -34,9 +34,7 @@ int main(int argc, char *argv[]) {
     }
 
     std::string input = "exit 0;";
-
-
-
+    
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);
 }
