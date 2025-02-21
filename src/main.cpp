@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     std::string input = "exit 0";
     std_gearlang::Parser parser(input);
 
-    std::cout << parser.parse().err();
+    std::cout << parser.parse().is_ok();
 
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);

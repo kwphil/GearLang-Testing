@@ -121,11 +121,13 @@ namespace std_gearlang::except {
         char* file;
 
     public:
-        UnwrapResultError(std::size_t l, char* f) {
+        UnwrapResultError(std::size_t l, const char* f) {
             loc = l;
-            file = f;
+            file = const_cast<char*>(f);
         }
 
+        // I don't like this warning, so I'm ignoring it
+        #pragma GCC diagnostic ignored "-Wterminate"
         std::exception& operator= (const std::exception& e) noexcept {
             throw e;
         }

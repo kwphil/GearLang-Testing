@@ -21,11 +21,13 @@
 
 #pragma once
 
+#include <exception>
 #include <format>
 #include <memory>
 #include <optional>
 #include <string>
 #include <tuple>
+#include "result.cpp"
 
 namespace std_gearlang {
     /**
@@ -166,7 +168,7 @@ namespace std_gearlang::token {
             // If the identifier does not match, return std::nullopt
             return std::nullopt;
         }
-        
+
         inline std::string type() const override {
             return "exit";
         }
@@ -186,7 +188,7 @@ namespace std_gearlang::token {
         }
 
         static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
-            std::string val = "";
+            static std::string val = "";
 
             for(auto it = input.begin(); it < input.end(); ++it) {
                 if(!std::isdigit(*it)) {
@@ -194,13 +196,13 @@ namespace std_gearlang::token {
                         return std::nullopt;
                     }
 
-                    return std::make_tuple(std::make_shared<Number>(val), std::string_view(it, input.end()));
+                    return std::make_tuple(std::make_shared<Number>(val), std::string_view(it, std::distance(it, input.end())));
                 }
 
                 val.push_back(*it);
             }
 
-            return std::nullopt;
+            return std::make_tuple(std::make_shared<Number>(val), "");
         }
 
         inline std::string type() const override {
