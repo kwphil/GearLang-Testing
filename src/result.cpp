@@ -25,6 +25,15 @@
 #include "error.cpp"
 
 namespace std_gearlang {
+    /**
+     * A generic result type for parsing operations, which returns an optional
+     * tuple containing the parsed result and the remaining input.
+     *
+     * @tparam T The type of the parsed object.
+     */
+    template <class T>
+    using NoErr_Result = std::optional<std::tuple<T, std::string_view>>;
+
     template <class T, class E>
     class Result {
     private:
