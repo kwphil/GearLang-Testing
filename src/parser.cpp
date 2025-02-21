@@ -42,6 +42,7 @@ namespace std_gearlang {
         std_gearlang::token::Exit::try_parse,   // Parser for the "Exit" keyword.
         std_gearlang::token::Return::try_parse, // Parser for the "Return" keyword.
         std_gearlang::token::Number::try_parse, // Parser for numbers (e.g., literals).
+        std_gearlang::token::Semi::try_parse, // Semicolon
     };
 
     /// @class Parser

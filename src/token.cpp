@@ -213,4 +213,23 @@ namespace std_gearlang::token {
             return value;
         }
     };
+
+    class Semi : public Base {
+    public:
+        static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
+            if (!(input[0] == ';')) {
+                return std::nullopt;
+            }
+
+            return std::make_tuple(std::make_shared<Semi>(), std::string_view(input.begin(), input.length()-1));
+        }
+
+        inline std::string type() const override {
+            return "semicolon";
+        }
+
+        inline std::string get_value() const override {
+            return type();
+        }
+    };
 }
