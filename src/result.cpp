@@ -39,18 +39,20 @@ namespace std_gearlang {
     private:
         std::optional<T> ok_val;
         std::optional<E> err_val;
+        bool has_err;
 
-        Result(std::optional<T> val, std::optional<E> err) {
+        Result(std::optional<T> val, std::optional<E> err, bool active_err) {
             ok_val = val;
             err_val = err;
+            has_err = active_err;
         }
     public:
         static inline Result<T, E> ok(T val) {
-            return Result(val, std::nullopt);
+            return Result(val, std::nullopt, false);
         }
 
         static inline Result<T, E> err(E val) {
-            return Result(std::nullopt, val);
+            return Result(std::nullopt, val, true);
         }
 
         inline E err() {
@@ -62,7 +64,7 @@ namespace std_gearlang {
         }
 
         inline constexpr bool is_err() {
-            return err_val.has_value();
+            return has_err;
         }
 
         inline constexpr T unwrap() {

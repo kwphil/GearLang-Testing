@@ -109,12 +109,12 @@ namespace std_gearlang {
 
             // Remove any leading whitespace.
             input = std_gearlang::consume_whitespace(input);
-
             // Attempt to match a token using the available parsers.
             for (auto& parser : std_gearlang::token_types) {
                 auto output = check_parser(parser);
 
-                if (output) {
+                if (output.has_value()) {
+std::cout << output.value();
                     return std_gearlang::Result<O, E>::ok(output.value()); // Token successfully parsed.
                 }
             }

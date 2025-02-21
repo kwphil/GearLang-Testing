@@ -221,7 +221,7 @@ namespace std_gearlang::token {
                 return std::nullopt;
             }
 
-            return std::make_tuple(std::make_shared<Semi>(), std::string_view(input.begin(), input.length()-1));
+            return std::make_tuple(std::make_shared<Semi>(), std::string_view(input.begin()+1, input.length()-1));
         }
 
         inline std::string type() const override {
