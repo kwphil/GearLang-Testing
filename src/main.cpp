@@ -34,16 +34,10 @@ int main(int argc, char *argv[]) {
         return std_gearlang::Error::cerr(std_gearlang::ErrorCode::NoFileSelected);
     }
 
-    std::string input = "exit 0;";
+    std::string input = "exit 0";
     std_gearlang::Parser parser(input);
 
-    auto output = parser.next_token();
-
-    std::cout << (*output.unwrap()).type() << std::endl;
-
-    output = parser.next_token();
-
-    std::cout << (*output.unwrap()).type() << std::endl;
+    std::cout << parser.parse().err();
 
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);

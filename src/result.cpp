@@ -44,6 +44,10 @@ namespace std_gearlang {
             return Result(std::nullopt, val);
         }
 
+        inline E err() {
+            return err_val.value();
+        }
+
         inline constexpr bool is_ok() {
             return !is_err();
         }
