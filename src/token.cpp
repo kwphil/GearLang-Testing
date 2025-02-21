@@ -128,14 +128,6 @@ namespace std_gearlang::token {
      */
     class Return : public Base {
     public:
-        /**
-         * Attempts to parse the "return" keyword from the input string.
-         * If the input starts with "return", it returns a parsed Return token.
-         * Otherwise, it returns std::nullopt indicating no match.
-         *
-         * @param input The input string to parse.
-         * @return A NoErr_Result containing a shared pointer to the parsed Return token or nullopt.
-         */
         static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
             auto [ identifier, new_input ] = std_gearlang::get_identifier(input);
 
@@ -148,11 +140,6 @@ namespace std_gearlang::token {
             return std::nullopt;
         }
 
-        /**
-         * Returns the type of this token, which is "return".
-         *
-         * @return The string "return".
-         */
         inline std::string type() const override {
             return "return";
         }
@@ -168,14 +155,6 @@ namespace std_gearlang::token {
      */
     class Exit : public Base {
     public:
-        /**
-         * Attempts to parse the "exit" keyword from the input string.
-         * If the input starts with "exit", it returns a parsed Exit token.
-         * Otherwise, it returns std::nullopt indicating no match.
-         *
-         * @param input The input string to parse.
-         * @return A NoErr_Result containing a shared pointer to the parsed Exit token or nullopt.
-         */
         static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
             auto [ identifier, new_input ] = std_gearlang::get_identifier(input);
 
@@ -187,12 +166,7 @@ namespace std_gearlang::token {
             // If the identifier does not match, return std::nullopt
             return std::nullopt;
         }
-
-        /**
-         * Returns the type of this token, which is "exit".
-         *
-         * @return The string "exit".
-         */
+        
         inline std::string type() const override {
             return "exit";
         }
