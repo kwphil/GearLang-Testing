@@ -191,15 +191,17 @@ namespace std_gearlang::token {
             static std::string val = "";
 
             for(auto it = input.begin(); it < input.end(); ++it) {
-                if(!std::isdigit(*it)) {
-                    if(val == "") {
-                        return std::nullopt;
-                    }
+                if(std::isdigit(*it)) {
+                    val.push_back(*it);
 
-                    return std::make_tuple(std::make_shared<Number>(val), std::string_view(it, std::distance(it, input.end())));
+                    continue;
                 }
 
-                val.push_back(*it);
+                if(val == "") {
+                    return std::nullopt;
+                }
+
+                return std::make_tuple(std::make_shared<Number>(val), std::string_view(it, std::distance(it, input.end())));
             }
 
             return std::make_tuple(std::make_shared<Number>(val), "");

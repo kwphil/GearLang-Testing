@@ -41,8 +41,8 @@ namespace std_gearlang {
     static std::vector<std::function<std_gearlang::NoErr_Result<std::shared_ptr<std_gearlang::token::Base>>(std::string_view input)>> token_types = {
         std_gearlang::token::Exit::try_parse,   // Parser for the "Exit" keyword.
         std_gearlang::token::Return::try_parse, // Parser for the "Return" keyword.
+        std_gearlang::token::Semi::try_parse,   // Semicolon
         std_gearlang::token::Number::try_parse, // Parser for numbers (e.g., literals).
-        std_gearlang::token::Semi::try_parse, // Semicolon
     };
 
     /// @class Parser
@@ -54,6 +54,7 @@ namespace std_gearlang {
     private:
         std::string full_input; ///< The full input string to be parsed.
         std::string_view input; ///< A view into the current unparsed portion of the input string.
+        std::vector<std::shared_ptr<std_gearlang::token::Base>> tokens;
 
         /// @brief Attempts to parse a token from the input using a provided parser function.
         /// @param parser A function that attempts to parse a token from the current input.
@@ -114,7 +115,6 @@ namespace std_gearlang {
                 auto output = check_parser(parser);
 
                 if (output.has_value()) {
-std::cout << output.value();
                     return std_gearlang::Result<O, E>::ok(output.value()); // Token successfully parsed.
                 }
             }
@@ -129,8 +129,6 @@ std::cout << output.value();
         auto parse() -> std_gearlang::Result<std::vector<std::shared_ptr<std_gearlang::token::Base>>, std::string> {
             using O = std::vector<std::shared_ptr<std_gearlang::token::Base>>;
             using E = std::string;
-
-            std::vector<std::shared_ptr<std_gearlang::token::Base>> tokens;
 
             while(peek()) {
                 auto token = next_token();

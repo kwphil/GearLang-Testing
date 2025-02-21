@@ -38,7 +38,11 @@ int main(int argc, char *argv[]) {
     std_gearlang::Parser parser(input);
 
     std::cout << parser.parse().is_ok();
-
+    auto output = parser.parse().unwrap();
+    std::cout << output.size() << std::endl;
+    for(auto it = output.begin(); it < output.end(); ++it) {
+        std::cout << it->get()->get_value() << std::endl;
+    }
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);
 }

@@ -6,8 +6,8 @@
     * **Priority** - Low
     * **Notes** - Probably a better way to do it than what I did (src/result.cpp)
 
-2. [ ] std_gearlang::Parser::parse
-    * **Description** - Given input "exit 0", the function returns err(t 0);
+2. [ ] std_gearlang::token::Number::try_parse
+    * **Description** - The function appears to always return Ok
     * **Status** - In Progress
     * **Priority** - High
-    * **Notes** - I got nuthin
+    * **Notes** - Prolly something with string checking if I were to guess
