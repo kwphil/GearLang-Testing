@@ -25,6 +25,8 @@
 /// which processes input strings, removes whitespace, and converts them into
 /// tokens using a set of predefined token parsers.
 
+#pragma once
+
 #include <functional>
 #include <string>
 #include <vector>
@@ -36,7 +38,7 @@ namespace std_gearlang {
     /// @details This vector contains functions that attempt to parse various token types
     /// from the input string, such as keywords (e.g., "Exit", "Return") and literals (e.g., numbers).
     /// These functions are applied sequentially to match the input string to a valid token type.
-    std::vector<std::function<std_gearlang::NoErr_Result<std::shared_ptr<std_gearlang::token::Base>>(std::string_view input)>> token_types = {
+    static std::vector<std::function<std_gearlang::NoErr_Result<std::shared_ptr<std_gearlang::token::Base>>(std::string_view input)>> token_types = {
         std_gearlang::token::Exit::try_parse,   // Parser for the "Exit" keyword.
         std_gearlang::token::Return::try_parse, // Parser for the "Return" keyword.
         std_gearlang::token::Number::try_parse, // Parser for numbers (e.g., literals).

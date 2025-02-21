@@ -24,3 +24,7 @@ I have written some functions to help with repetition.
 
 * `get_identifier` - Will return the string of the identifier, and the rest of the input. This is especially good for matching keywords.
 * `consume_whitespace` - I doubt you'll have to worry about this, but it just gets rid of the whitespace at the beginning of the input. This is used in `Parser::next_token`, so you probably don't need to worry about it.
+
+## Adding the Token to the Parser
+
+Your token won't be attempted unless you specifically add it to the `token_types` vector. There are two ways you can do this. Number 1 is just to add the parser directly to the vector. However, number 2 may be cleaner and easier, where you just push your parser onto the vector. Be sure to include `parser.cpp`!
