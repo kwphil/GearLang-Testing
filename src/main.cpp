@@ -24,6 +24,7 @@
 #include "error.cpp"
 #include "token.cpp"
 #include "parser.cpp"
+#include "result.cpp"
 
 int main(int argc, char *argv[]) {
     // Making sure the file is present

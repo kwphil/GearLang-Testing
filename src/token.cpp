@@ -35,7 +35,7 @@ namespace std_gearlang {
      * @tparam T The type of the parsed object.
      */
     template <class T>
-    using Result = std::optional<std::tuple<T, std::string_view>>;
+    using NoErr_Result = std::optional<std::tuple<T, std::string_view>>;
 
     /**
      * Attempts to parse an identifier from the provided input string.
@@ -126,9 +126,9 @@ namespace std_gearlang::token {
          * Attempts to parse a token from the given input string.
          *
          * @param input The input string to parse.
-         * @return A result containing the parsed token or nullopt if no token is matched.
+         * @return A NoErr_Result containing the parsed token or nullopt if no token is matched.
          */
-        static std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input);
+        static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input);
     };
 
     /**
@@ -143,9 +143,9 @@ namespace std_gearlang::token {
          * Otherwise, it returns std::nullopt indicating no match.
          *
          * @param input The input string to parse.
-         * @return A result containing a shared pointer to the parsed Return token or nullopt.
+         * @return A NoErr_Result containing a shared pointer to the parsed Return token or nullopt.
          */
-        static std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
+        static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
             auto [ identifier, new_input ] = std_gearlang::get_identifier(input);
 
             // Check if the identifier matches "return"
@@ -183,9 +183,9 @@ namespace std_gearlang::token {
          * Otherwise, it returns std::nullopt indicating no match.
          *
          * @param input The input string to parse.
-         * @return A result containing a shared pointer to the parsed Exit token or nullopt.
+         * @return A NoErr_Result containing a shared pointer to the parsed Exit token or nullopt.
          */
-        static std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
+        static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
             auto [ identifier, new_input ] = std_gearlang::get_identifier(input);
 
             // Check if the identifier matches "exit"
@@ -220,7 +220,7 @@ namespace std_gearlang::token {
             value = val;
         }
 
-        static std_gearlang::Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
+        static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
             std::string val = "";
 
             for(auto it = input.begin(); it < input.end(); ++it) {
@@ -228,7 +228,7 @@ namespace std_gearlang::token {
                     if(val == "") {
                         return std::nullopt;
                     }
-                    
+
                     return std::make_tuple(std::make_shared<Number>(val), std::string_view(it, input.end()));
                 }
 

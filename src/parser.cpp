@@ -34,7 +34,7 @@ namespace std_gearlang {
     /// @brief A vector of token parsing functions.
     /// @details This vector stores functions that attempt to parse different types
     /// of tokens from the input string.
-    std::vector<std::function<std_gearlang::Result<std::shared_ptr<std_gearlang::token::Base>>(std::string_view input)>> token_types = {
+    std::vector<std::function<std_gearlang::NoErr_Result<std::shared_ptr<std_gearlang::token::Base>>(std::string_view input)>> token_types = {
         std_gearlang::token::Exit::try_parse,
         std_gearlang::token::Return::try_parse,
     };

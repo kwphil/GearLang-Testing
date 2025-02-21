@@ -17,17 +17,19 @@
 //
 // You should have received a copy of the GNU General Public License and
 // a copy of the GCC Runtime Library Exception along with this program;
-// If not, see <http://www.gnu.org/licenses/>. 
+// If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
 #include <bit>
+#include <exception>
+#include <sstream>
 
 namespace std_gearlang {
 
     /**
      * @brief Enum representing different error codes in the GearLang interpreter.
-     * 
+     *
      * This enum is used to define specific error codes for various types of
      * errors encountered during the execution of GearLang code.
      */
@@ -39,9 +41,9 @@ namespace std_gearlang {
 
     /**
      * @brief A class for managing and representing errors using error codes.
-     * 
-     * The `Error` class is used to encapsulate error codes (either provided as 
-     * an enum or an integer) and offers methods for retrieving and converting 
+     *
+     * The `Error` class is used to encapsulate error codes (either provided as
+     * an enum or an integer) and offers methods for retrieving and converting
      * error codes to different formats (such as integer format for output).
      */
     class Error {
@@ -51,10 +53,10 @@ namespace std_gearlang {
     public:
         /**
          * @brief Constructs an Error object from an ErrorCode enum.
-         * 
-         * This constructor initializes the `Error` object with a specific error 
+         *
+         * This constructor initializes the `Error` object with a specific error
          * code from the `ErrorCode` enum.
-         * 
+         *
          * @param e The error code (of type `ErrorCode`) to initialize the object with.
          */
         inline Error(ErrorCode e) {
@@ -63,10 +65,10 @@ namespace std_gearlang {
 
         /**
          * @brief Constructs an Error object from an integer value.
-         * 
-         * This constructor initializes the `Error` object with an integer 
+         *
+         * This constructor initializes the `Error` object with an integer
          * value and casts it to the corresponding `ErrorCode` enum value.
-         * 
+         *
          * @param e The error code as an integer, which will be cast to an `ErrorCode` enum.
          */
         inline Error(int e) {
@@ -75,10 +77,10 @@ namespace std_gearlang {
 
         /**
          * @brief Retrieves the error code as an `ErrorCode` enum.
-         * 
+         *
          * This method returns the current error code stored in the `Error` object
          * in its enum format.
-         * 
+         *
          * @return The error code as an `ErrorCode` enum value.
          */
         inline ErrorCode get_error() {
@@ -87,10 +89,10 @@ namespace std_gearlang {
 
         /**
          * @brief Retrieves the error code as an integer.
-         * 
-         * This method converts the error code to its integer representation, 
+         *
+         * This method converts the error code to its integer representation,
          * useful for displaying or logging the error in a numeric format.
-         * 
+         *
          * @return The error code as an integer.
          */
         inline int cerr() {
@@ -99,10 +101,10 @@ namespace std_gearlang {
 
         /**
          * @brief Retrieves the error code as an integer from a given `ErrorCode`.
-         * 
-         * This static method takes an `ErrorCode` enum value and converts it to 
+         *
+         * This static method takes an `ErrorCode` enum value and converts it to
          * its integer representation.
-         * 
+         *
          * @param e The error code in the form of `ErrorCode` enum.
          * @return The error code as an integer.
          */
@@ -115,19 +117,33 @@ namespace std_gearlang {
 namespace std_gearlang::except {
     class UnwrapResultError : public std::exception {
     private:
-        char *message;
-    
+        std::size_t loc;
+        char* file;
+
     public:
-        UnwrapResultError(char *value) {
-            message = value;
+        UnwrapResultError(std::size_t l, char* f) {
+            loc = l;
+            file = f;
         }
 
         std::exception& operator= (const std::exception& e) noexcept {
-            message = e.what();
+            throw e;
         }
 
         const char *what() const noexcept override {
-            return static_cast<const char *>(message);
+            std::stringstream message;
+            std::string buf;
+
+            message << "Tried to call unwrap on a std_gearlang::Result, in file "
+                << file << ", on line: " << loc;
+
+            buf = message.str();
+
+            return static_cast<const char *>(buf.c_str());
         }
-    }
+
+        inline std::size_t get_loc() {
+            return loc;
+        }
+    };
 }
