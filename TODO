@@ -1,7 +1,13 @@
-Bugs to fix
+# Bugs to fix
 
 1. [ ] std_gearlang::except::UnwrapResultError
     * **Description** - The what() function throws up garbage and then core dumps
     * **Status** - Not Started
     * **Priority** - Low
     * **Notes** - Probably a better way to do it than what I did (src/result.cpp)
+
+2. [ ] std_gearlang::Parser::parse
+    * **Description** - Given input "exit 0", the function returns err(t 0);
+    * **Status** - In Progress
+    * **Priority** - High
+    * **Notes** - I got nuthin
