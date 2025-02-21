@@ -39,21 +39,11 @@ int main(int argc, char *argv[]) {
 
     auto output = parser.next_token();
 
-    if(!output) {
-        std::cout << "None";
-        return -1;
-    }
-
-    std::cout << (*output.value()).type() << std::endl;
+    std::cout << (*output.unwrap()).type() << std::endl;
 
     output = parser.next_token();
 
-    if(!output) {
-        std::cout << parser.get_input();
-        return -1;
-    }
-
-    std::cout << (*output.value()).type() << std::endl;
+    std::cout << (*output.unwrap()).type() << std::endl;
 
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);

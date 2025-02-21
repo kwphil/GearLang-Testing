@@ -49,7 +49,7 @@ namespace std_gearlang {
         }
 
         inline constexpr bool is_err() {
-            return err_val.value();
+            return err_val.has_value();
         }
 
         inline constexpr T unwrap() {

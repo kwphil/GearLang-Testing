@@ -28,6 +28,7 @@
 #include <functional>
 #include <string>
 #include <vector>
+#include "result.cpp"
 #include "token.cpp"
 
 namespace std_gearlang {
@@ -89,9 +90,12 @@ namespace std_gearlang {
         /// @details This function first removes leading whitespace, then attempts to parse
         /// a token using the available token parsers.
         /// @return An optional shared pointer to the next token, or nullopt if no token is found.
-        std::optional<std::shared_ptr<std_gearlang::token::Base>> next_token() {
+        std_gearlang::Result<std::shared_ptr<std_gearlang::token::Base>, std::string> next_token() {
+            using O = std::shared_ptr<std_gearlang::token::Base>;
+            using E = std::string;
+
             if (!peek()) {
-                return std::nullopt;
+                return std_gearlang::Result<O, E>::err("Unexpected EOF");
             }
 
             // First clear whitespace
@@ -102,11 +106,11 @@ namespace std_gearlang {
                 auto output = check_parser(parser);
 
                 if (output) {
-                    return output;
+                    return std_gearlang::Result<O, E>::ok(output.value());
                 }
             }
 
-            return std::nullopt;
+            return std_gearlang::Result<O, E>::err("Unmatched Token");
         }
 
         std::string_view get_input() {
