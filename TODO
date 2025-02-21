@@ -5,9 +5,3 @@
     * **Status** - Not Started
     * **Priority** - Low
     * **Notes** - Probably a better way to do it than what I did (src/result.cpp)
-
-2. [ ] std_gearlang::token::Number::try_parse
-    * **Description** - The function appears to always return Ok
-    * **Status** - In Progress
-    * **Priority** - High
-    * **Notes** - Prolly something with string checking if I were to guess

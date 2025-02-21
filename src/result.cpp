@@ -22,6 +22,7 @@
 #pragma once
 
 #include <optional>
+#include <source_location>
 #include "error.cpp"
 
 namespace std_gearlang {
@@ -67,9 +68,9 @@ namespace std_gearlang {
             return has_err;
         }
 
-        inline constexpr T unwrap() {
+        inline constexpr T unwrap(std::source_location loc = std::source_location::current()) {
             if(is_err()) {
-                throw std_gearlang::except::UnwrapResultError(__LINE__, __FILE__);
+                throw std_gearlang::except::UnwrapResultError("Tried to call unwrap on a std_gearlang::Result", loc);
             }
 
             return ok_val.value();

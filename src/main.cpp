@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
         return std_gearlang::Error::cerr(std_gearlang::ErrorCode::NoFileSelected);
     }
 
-    std::string input = "exit 0;";
+    std::string input = "exit 0;-";
     std_gearlang::Parser parser(input);
 
     std::cout << parser.parse().is_ok();

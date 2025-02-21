@@ -22,7 +22,10 @@
 #pragma once
 
 #include <bit>
+#include <cstring>
 #include <exception>
+#include <format>
+#include <source_location>
 #include <sstream>
 
 namespace std_gearlang {
@@ -117,13 +120,16 @@ namespace std_gearlang {
 namespace std_gearlang::except {
     class UnwrapResultError : public std::exception {
     private:
-        std::size_t loc;
-        char* file;
+        std::string message;
+        std::source_location location;
 
     public:
-        UnwrapResultError(std::size_t l, const char* f) {
-            loc = l;
-            file = const_cast<char*>(f);
+        UnwrapResultError(
+            const std::string custom_message = "Tried to call unwrap on a std_gearlang::Result",
+            const std::source_location loc = std::source_location::current()
+        ) {
+            message = custom_message;
+            location = loc;
         }
 
         // I don't like this warning, so I'm ignoring it
@@ -133,19 +139,13 @@ namespace std_gearlang::except {
         }
 
         const char *what() const noexcept override {
-            std::stringstream message;
-            std::string buf;
-
-            message << "Tried to call unwrap on a std_gearlang::Result, in file "
-                << file << ", on line: " << loc;
-
-            buf = message.str();
-
-            return static_cast<const char *>(buf.c_str());
-        }
-
-        inline std::size_t get_loc() {
-            return loc;
+            return static_cast<const char *>(std::format(
+                "In file: {} at {}:{}\n{}",
+                location.file_name(),
+                location.line(),
+                location.column(),
+                message
+            ).c_str());
         }
     };
 }

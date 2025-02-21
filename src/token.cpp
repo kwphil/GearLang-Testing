@@ -188,7 +188,7 @@ namespace std_gearlang::token {
         }
 
         static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
-            static std::string val = "";
+            std::string val = "";
 
             for(auto it = input.begin(); it < input.end(); ++it) {
                 if(std::isdigit(*it)) {
@@ -202,6 +202,10 @@ namespace std_gearlang::token {
                 }
 
                 return std::make_tuple(std::make_shared<Number>(val), std::string_view(it, std::distance(it, input.end())));
+            }
+
+            if(val == "") {
+                return std::nullopt;
             }
 
             return std::make_tuple(std::make_shared<Number>(val), "");
