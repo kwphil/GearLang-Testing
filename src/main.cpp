@@ -44,6 +44,9 @@ int main(int argc, char *argv[]) {
     for(auto it = output.begin(); it < output.end(); ++it) {
         std::cout << it->get()->get_value() << std::endl;
     }
+
+    std_gearlang::Compiler::test(output);
+
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);
 }

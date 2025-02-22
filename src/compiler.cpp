@@ -28,22 +28,6 @@
 #include <vector>
 #include "token.cpp"
 
-namespace std_gearlang {
-    class Compiler {
-    private:
-        std::string output;
-        std::vector<std::shared_ptr<std_gearlang::token::Base>>& tokens;
-
-    public:
-        Compiler(std::vector<std::shared_ptr<std_gearlang::token::Base>>& t) {
-            output = "";
-            tokens = t;
-        }
-
-
-    };
-}
-
 namespace std_gearlang::tree {
     class Exit {
     private:
@@ -57,11 +41,39 @@ namespace std_gearlang::tree {
         static std::optional<Exit> try_parse(
             std::vector<std::shared_ptr<std_gearlang::token::Base>>::iterator iterator
         ) {
-            if(iterator->get()->type() == "exit") {
+            if(iterator->get()->type() != "exit") {
                 return std::nullopt;
             }
 
-            return Exit(std::stoi((iterator+1)->get()->get_value()).c_str());
+            return Exit(std::stoi((iterator+1)->get()->get_value().c_str()));
+        }
+
+        int get_code() {
+            return code;
+        }
+    };
+}
+
+namespace std_gearlang {
+    class Compiler {
+    private:
+        std::string output;
+        std::vector<std::shared_ptr<std_gearlang::token::Base>>& tokens;
+
+    public:
+        Compiler(std::vector<std::shared_ptr<std_gearlang::token::Base>>& t) {
+            output = "";
+            tokens = t;
+        }
+
+        static void test(auto& t) {
+            auto output = std_gearlang::tree::Exit::try_parse(t.begin());
+
+            if(!output) {
+                std::cout << "Fail" << std::endl;
+            } else {
+                std::cout << output.value().get_code();
+            }
         }
     };
 }
