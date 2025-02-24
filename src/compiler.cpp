@@ -21,18 +21,16 @@
 
 #pragma once
 
-#include <llvm/IR/LLVMContext.h>
-#include <llvm/IR/Module.h>
-#include <llvm/IR/Function.h>
-#include <llvm/IR/Type.h>
-#include <llvm/IR/IRBuilder.h>
-#include <llvm/Support/raw_ostream.h>
 #include <cstdlib>
 #include <memory>
 #include <optional>
 #include <string>
 #include <vector>
 #include "token.cpp"
+
+namespace std_gearlang::ir {
+    extern void create_empty(std::string name);
+}
 
 namespace std_gearlang::tree {
     class Exit {
@@ -79,14 +77,7 @@ namespace std_gearlang {
                 throw;
             }
 
-            llvm::LLVMContext context;
-            llvm::Module mod("test", context);
-            llvm::FunctionType* funcType = llvm::FunctionType::get(llvm::Type::getVoidTy(context), false);
-            llvm::Function* start = llvm::Function::Create(funcType, llvm::Function::ExternalLinkage, "_start", mod);
-            llvm::BasicBlock* entryBlock = llvm::BasicBlock::Create(context, "entry", start);
-            llvm::IRBuilder<> builder(entryBlock);
-            builder.CreateRetVoid();
-            mod.print(llvm::outs(), nullptr);
+            std_gearlang::ir::create_empty("_start");
         }
     };
 }
