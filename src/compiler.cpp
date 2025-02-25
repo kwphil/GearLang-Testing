@@ -22,6 +22,7 @@
 #pragma once
 
 #include <cstdlib>
+#include <functional>
 #include <memory>
 #include <optional>
 #include <ranges>
@@ -41,9 +42,7 @@ namespace std_gearlang::tree {
         ) {
 
         }
-
-        const static std::vector<std::function<std::optional<Statement>(std::ranges::range<std::shared_ptr<std_gearlang::token::Base>>>)>> parsers;
-    }
+    };
 
     class Exit : public Statement {
     private:
@@ -55,7 +54,7 @@ namespace std_gearlang::tree {
         }
 
         static std::optional<Statement> try_parse(
-            std::vector<std::shared_ptr<std_gearlang::token::Base>>::iterator iterator
+            std::ranges::range<std_gearlang::token::Base> section
         ) {
             if(iterator->get()->type() != "exit") {
                 return std::nullopt;
@@ -69,7 +68,9 @@ namespace std_gearlang::tree {
         }
     };
 
-    Statement::parsers.push_back(Exit::try_parse);
+    static std::vector<std::function<std::optional<Statement>>(std::ranges::range<std_gearlang::token::Base>)>> parsers {
+        Exit::try_parse
+    };
 }
 
 namespace std_gearlang {
