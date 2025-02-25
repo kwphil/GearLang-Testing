@@ -25,10 +25,11 @@
 #include <functional>
 #include <memory>
 #include <optional>
-#include <ranges>
+#include <span>
 #include <string>
 #include <vector>
 #include "token.cpp"
+#include "tree.cpp"
 
 namespace std_gearlang::ir {
     extern void create_empty(std::string name) {}
@@ -68,7 +69,7 @@ namespace std_gearlang::tree {
         }
     };
 
-    static std::vector<std::function<std::optional<Statement>>(std::ranges::range<std_gearlang::token::Base>)>> parsers {
+    static ParserList<> parsers {
         Exit::try_parse
     };
 }
