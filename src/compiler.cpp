@@ -24,16 +24,28 @@
 #include <cstdlib>
 #include <memory>
 #include <optional>
+#include <ranges>
 #include <string>
 #include <vector>
 #include "token.cpp"
 
 namespace std_gearlang::ir {
-    extern void create_empty(std::string name);
+    extern void create_empty(std::string name) {}
 }
 
 namespace std_gearlang::tree {
-    class Exit {
+    class Statement {
+    public:
+        static std::optional<Statement> try_parse(
+            std::vector<std::shared_ptr<std_gearlang::token::Base>>::iterator iterator
+        ) {
+
+        }
+
+        const static std::vector<std::function<std::optional<Statement>(std::ranges::range<std::shared_ptr<std_gearlang::token::Base>>>)>> parsers;
+    }
+
+    class Exit : public Statement {
     private:
         int code;
 
@@ -42,7 +54,7 @@ namespace std_gearlang::tree {
             code = c;
         }
 
-        static std::optional<Exit> try_parse(
+        static std::optional<Statement> try_parse(
             std::vector<std::shared_ptr<std_gearlang::token::Base>>::iterator iterator
         ) {
             if(iterator->get()->type() != "exit") {
@@ -56,6 +68,8 @@ namespace std_gearlang::tree {
             return code;
         }
     };
+
+    Statement::parsers.push_back(Exit::try_parse);
 }
 
 namespace std_gearlang {
