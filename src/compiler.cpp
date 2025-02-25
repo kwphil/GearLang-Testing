@@ -41,7 +41,13 @@ namespace std_gearlang::tree {
         static std::optional<Statement> try_parse(
             std::vector<std::shared_ptr<std_gearlang::token::Base>>::iterator iterator
         ) {
+            const auto beginning = iterator;
 
+            while(true) {
+                if(*it == token::Semi) {
+                    // loop through the parsers
+                }
+            }
         }
     };
 
