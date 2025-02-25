@@ -2,4 +2,4 @@ start = statement ;
 
 statement = "exit" , positive integer , ";"~ ; 
 
-~white space = " " | "\t" | "\n"
+~white space = " " | "\t" | "\n" ;
