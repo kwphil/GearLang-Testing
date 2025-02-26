@@ -27,103 +27,12 @@
 #include <optional>
 #include <string>
 #include <tuple>
+#include "helper.cpp"
 #include "result.cpp"
-
-namespace std_gearlang {
-    /**
-     * Attempts to parse an identifier from the provided input string.
-     * The identifier must start with an alphabetical character, and can be followed by
-     * alphanumeric characters. This function returns a tuple containing the identifier
-     * and the remaining input.
-     *
-     * @param input The string to parse the identifier from.
-     * @return A tuple containing the parsed identifier and the remaining input.
-     */
-    auto get_identifier(std::string_view input) -> std::tuple<std::string, std::string_view> {
-        std::string collected_identifier = "";
-
-        // If the first character is not an alphabet, return empty identifier
-        if(!isalpha(input[0])) {
-            return { "", input };
-        }
-
-        // Start collecting the identifier
-        collected_identifier.push_back(input[0]);
-
-        // Process the remaining characters of the input
-        for(auto it = input.begin()+1; it < input.end(); ++it) {
-            char c = *it;
-
-            // If the character is non-alphanumeric, stop collecting
-            if(!std::isalnum(c)) {
-                return { collected_identifier, std::string_view(it, input.end()) };
-            }
-
-            // Store the valid character
-            collected_identifier.push_back(c);
-        }
-
-        // Return the identifier and an empty string if the identifier was at the end
-        return { collected_identifier, "" };
-    }
-
-    /**
-     * Consumes any leading whitespace from the input string.
-     * This function returns the remaining input after the whitespace has been removed.
-     *
-     * @param input The string to remove leading whitespace from.
-     * @return A string view containing the input after the whitespace.
-     */
-    std::string_view consume_whitespace(std::string_view input) {
-        // Traverse through the input and find the first non-blank character
-        for(auto it = input.begin(); it < input.end(); ++it) {
-            char c = *it;
-
-            // If a non-blank character is found, return the remaining input
-            if(!std::isblank(c)) {
-                return std::string_view(it, input.end());
-            }
-        }
-
-        // If no non-blank character is found, return the original input
-        return input;
-    }
-}
+#include "token/types.cpp"
+#include "token/keyword.cpp"
 
 namespace std_gearlang::token {
-
-    /**
-     * Base class for all token types.
-     * This class defines a common interface for all token types, including the type
-     * of the token and the parsing function to match the token from a string input.
-     */
-    class Base {
-    public:
-        virtual ~Base() = default;
-
-        /**
-         * Returns a string representing the type of the token.
-         *
-         * @return A string describing the token type.
-         */
-        virtual inline std::string type() const = 0;
-
-        /**
-         * Returns a value
-         *
-         * If no value is needed, e.g. a keyword, just return type()
-         */
-        virtual inline std::string get_value() const = 0;
-
-        /**
-         * Attempts to parse a token from the given input string.
-         *
-         * @param input The input string to parse.
-         * @return A NoErr_Result containing the parsed token or nullopt if no token is matched.
-         */
-        static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input);
-    };
-
     class Number : public Base {
     private:
         std::string value;
@@ -157,8 +66,8 @@ namespace std_gearlang::token {
             return std::make_tuple(std::make_shared<Number>(val), "");
         }
 
-        inline std::string type() const override {
-            return "number";
+        static inline TokenType type() {
+            return TokenType::Number;
         }
 
         inline std::string get_value() const override {
@@ -176,12 +85,12 @@ namespace std_gearlang::token {
             return std::make_tuple(std::make_shared<Semi>(), std::string_view(input.begin()+1, input.length()-1));
         }
 
-        inline std::string type() const override {
-            return "semicolon";
+        static inline TokenType type() {
+            return TokenType::Semicolon;
         }
 
         inline std::string get_value() const override {
-            return type();
+            return "Semicolon";
         }
     };
 }

@@ -41,13 +41,13 @@ namespace std_gearlang::tree {
         static std::optional<Statement> try_parse(
             std::vector<std::shared_ptr<token::Base>>::iterator iterator
         ) {
-            // const auto beginning = iterator;
+            const auto beginning = iterator;
 
-            // while(true) {
-            //     if(*it == token::Semi) {
-            //         // loop through the parsers
-            //     }
-            // }
+            while(true) {
+                if(**iterator == token::TokenType::Semicolon) {
+                    // loop through the parsers
+                }
+            }
         }
     };
 
@@ -63,7 +63,7 @@ namespace std_gearlang::tree {
         static std::optional<Statement> try_parse(
             std::span<std::shared_ptr<token::Base>> section
         ) {
-            if(section.front()->type() != "exit") {
+            if(section.front()->type() != token::TokenType::Exit) {
                 return std::nullopt;
             }
 

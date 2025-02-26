@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <bit>
 #include <optional>
 #include <source_location>
 #include "error.cpp"
