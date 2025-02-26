@@ -39,7 +39,7 @@ namespace std_gearlang::tree {
     class Statement {
     public:
         static std::optional<Statement> try_parse(
-            std::vector<std::shared_ptr<std_gearlang::token::Base>>::iterator iterator
+            std::vector<std::shared_ptr<token::Base>>::iterator iterator
         ) {
             // const auto beginning = iterator;
 
@@ -61,13 +61,13 @@ namespace std_gearlang::tree {
         }
 
         static std::optional<Statement> try_parse(
-            std::ranges::range<std_gearlang::token::Base> section
+            std::span<std::shared_ptr<token::Base>> section
         ) {
-            if(iterator->get()->type() != "exit") {
+            if(section.front()->type() != "exit") {
                 return std::nullopt;
             }
 
-            return Exit(std::stoi((iterator+1)->get()->get_value().c_str()));
+            return Exit(std::stoi(section[1]->get_value().c_str()));
         }
 
         int get_code() {
@@ -75,7 +75,7 @@ namespace std_gearlang::tree {
         }
     };
 
-    static ParserList<> parsers {
+    static ParserList<std::optional<Statement>(std::span<std::shared_ptr<token::Base>>)> parsers {
         Exit::try_parse
     };
 }
@@ -93,7 +93,7 @@ namespace std_gearlang {
         }
 
         static void test(auto& t) {
-            auto output = std_gearlang::tree::Exit::try_parse(t.begin());
+            auto output = std_gearlang::tree::Exit::try_parse(std::span(t.begin(), t.end()));
 
             if(!output) {
                 throw;
