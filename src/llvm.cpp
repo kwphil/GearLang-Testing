@@ -6,10 +6,11 @@
 #include <llvm/Support/raw_ostream.h>
 #include <string>
 
+static llvm::LLVMContext context;
+static llvm::Module main_module("main", context);
+
 namespace std_gearlang::ir {
-    void create_empty(std::string name) {
-        llvm::LLVMContext context;
-        llvm::Module mod("test", context);
+    void create_start(std::string name) {
         llvm::FunctionType* funcType = llvm::FunctionType::get(llvm::Type::getVoidTy(context), false);
         llvm::Function* start = llvm::Function::Create(funcType, llvm::Function::ExternalLinkage, "_start", mod);
 
