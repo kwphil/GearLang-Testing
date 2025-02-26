@@ -47,6 +47,8 @@ int main(int argc, char *argv[]) {
 
     std_gearlang::Compiler::test(output);
 
+    std_gearlang::ir::create_start();
+
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);
 }

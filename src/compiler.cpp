@@ -32,7 +32,7 @@
 #include "tree.cpp"
 
 namespace std_gearlang::ir {
-    extern void create_empty(std::string name) {}
+    extern void create_start();
 }
 
 namespace std_gearlang::tree {
@@ -41,13 +41,13 @@ namespace std_gearlang::tree {
         static std::optional<Statement> try_parse(
             std::vector<std::shared_ptr<std_gearlang::token::Base>>::iterator iterator
         ) {
-            const auto beginning = iterator;
+            // const auto beginning = iterator;
 
-            while(true) {
-                if(*it == token::Semi) {
-                    // loop through the parsers
-                }
-            }
+            // while(true) {
+            //     if(*it == token::Semi) {
+            //         // loop through the parsers
+            //     }
+            // }
         }
     };
 
@@ -98,8 +98,6 @@ namespace std_gearlang {
             if(!output) {
                 throw;
             }
-
-            std_gearlang::ir::create_empty("_start");
         }
     };
 }

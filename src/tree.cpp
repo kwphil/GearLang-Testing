@@ -6,5 +6,5 @@
 
 namespace std_gearlang {
     template<class Signature>
-    using ParserList = std::vector<std::functional<Signature>>;
+    using ParserList = std::vector<std::function<Signature>>;
 }
