@@ -38,9 +38,8 @@ namespace std_gearlang::token {
         std::string value;
 
     public:
-        Number(std::string val) {
-            value = val;
-        }
+        Number(std::string val) 
+        : value(val) { }
 
         static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
             std::string val = "";

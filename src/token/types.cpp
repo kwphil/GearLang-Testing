@@ -36,7 +36,7 @@ namespace std_gearlang::token {
         Semicolon
     };
 
-        /**
+    /**
      * Base class for all token types.
      * This class defines a common interface for all token types, including the type
      * of the token and the parsing function to match the token from a string input.
@@ -65,7 +65,7 @@ namespace std_gearlang::token {
          * @param input The input string to parse.
          * @return A NoErr_Result containing the parsed token or nullopt if no token is matched.
          */
-        static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input);
+        static auto -> try_parse(std::string_view input) -> std_gearlang::NoErr_Result<std::shared_ptr<Base>>;
 
         bool operator==(Base const& other) {
             return type() == other.type();

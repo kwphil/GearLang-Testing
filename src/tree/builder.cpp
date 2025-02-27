@@ -24,7 +24,6 @@
 #include "../token/types.cpp"
 
 namespace std_gearlang::tree {
-    template<class T>
     class Node {
     protected:
         Node value;
