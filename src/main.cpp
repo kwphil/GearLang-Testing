@@ -28,6 +28,9 @@
 #include "result.cpp"
 
 int main(int argc, char *argv[]) {
+    // GCC Runtime exception
+    std::cout << "This GCC Runtime Library Exception (\"Exception\") is an additional permission under section 7 of the GNU General Public License, version 3 (\"GPLv3\"). It applies to a given file (the \"Runtime Library\") that bears a notice placed by the copyright holder of the file stating that the file is governed by GPLv3 along with this Exception.";
+
     // Making sure the file is present
     if(argc < 2) {
         std::cout << "No file has been selected" << std::endl;
