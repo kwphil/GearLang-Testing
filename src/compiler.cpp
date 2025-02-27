@@ -36,7 +36,29 @@ namespace std_gearlang::ir {
 }
 
 namespace std_gearlang::tree {
+    static ParserList<std::optional<Statement>(std::span<std::shared_ptr<token::Base>>)> parsers;
+
     class Statement {
+    private:
+        std::optional<Statement> iterate_parsers(
+            std::vector<std::shared_ptr<token::Base>>::iterator& begin;
+            std::vector<std::shared_ptr<token::Base>>::iterator& end;
+        ) {
+            auto std::span<token::Base> span(begin, end);
+
+            for(auto& parser : parsers) {
+                auto output = parser(span);
+
+                if(!output) {
+                    continue;
+                }
+
+                return output;
+            }
+            
+            return std::nullopt;
+        }
+
     public:
         static std::optional<Statement> try_parse(
             std::vector<std::shared_ptr<token::Base>>::iterator iterator
@@ -45,7 +67,7 @@ namespace std_gearlang::tree {
 
             while(true) {
                 if(**iterator == token::TokenType::Semicolon) {
-                    // loop through the parsers
+                    iterate_parsers(beginning, iterator);
                 }
             }
         }
@@ -75,9 +97,9 @@ namespace std_gearlang::tree {
         }
     };
 
-    static ParserList<std::optional<Statement>(std::span<std::shared_ptr<token::Base>>)> parsers {
+    parsers = {
         Exit::try_parse
-    };
+    }
 }
 
 namespace std_gearlang {
