@@ -2,6 +2,8 @@
 
 This is the main source code repository for GearLang. It will contain the std library, and docs.
 
+This project is **UNDER DEVELOPMENT**. You can contribute by forking the repo and creating a merge request.
+
 ## Why GearLang?
 
 - **Performance:** Fast and easily optimizable, suitable for OS development and Systems Programming.
