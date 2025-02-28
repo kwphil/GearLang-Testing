@@ -40,11 +40,18 @@ namespace std_gearlang::tree {
             std::vector<std::shared_ptr<Node>> child
         ) : parent(par), children(child) { }
 
+        virtual auto iterate_parsers(
+            std::span<std::shared_ptr<token::Base>> list,
+            std::vector<std::function<Node(std::weak_ptr<Node>)>> parsers
+        ) -> std::optional<std::shared_ptr<Node>> const {
+
+        }
+
     public:
         virtual ~Node() = default;
 
-        virtual inline std::weak_ptr<Node>& get_parent() const { return parent; }
-        virtual inline std::vector<std::shared_ptr<Node>>& get_children() const { return children; }
+        virtual inline std::weak_ptr<Node>& get_parent() { return parent; }
+        virtual inline std::vector<std::shared_ptr<Node>>& get_children() { return children; }
 
         virtual bool try_parse(std::span<std::shared_ptr<token::Base>>) = 0;
 
@@ -52,7 +59,7 @@ namespace std_gearlang::tree {
             parent = other.get_parent();
             children = other.get_children();
 
-            return this;
+            return *this;
         }
     };
 
@@ -60,7 +67,7 @@ namespace std_gearlang::tree {
     private:
         const std::vector<std::shared_ptr<token::Base>>& token_list;
         std::vector<std::shared_ptr<token::Base>>::iterator iterator;
-        std::vector<std::function<std::option<Node>(std::span<std::shared_ptr<token::Base>)>> parsers;
+        std::vector<std::function<std::optional<Node>(std::span<std::shared_ptr<token::Base>)>> parsers;
 
     public:
         Parser(std::vector<std::shared_ptr<token::Base>>& tokens)

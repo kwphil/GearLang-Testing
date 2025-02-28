@@ -26,6 +26,8 @@
 #include "token.cpp"
 #include "parser.cpp"
 #include "result.cpp"
+#include "tree/builder.cpp"
+#include "tree/statement.cpp"
 
 int main(int argc, char *argv[]) {
     // GCC Runtime exception

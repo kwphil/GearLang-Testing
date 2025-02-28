@@ -30,7 +30,9 @@ namespace std_gearlang::tree {
         bool try_parse(std::span<std::shared_ptr<token::Base>> token_list) {
             for(auto& token : token_list ) {
                 if(token == token::TokenType::Semicolon) {
+                    auto subspan = token_list.subspan(0, token_list-2);
 
+                    iterate_parsers(token_list, Exit());
                 }
             }
         }
