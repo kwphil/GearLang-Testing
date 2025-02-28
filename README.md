@@ -59,6 +59,14 @@ fn main {
 }
 ```
 
+## Building 
+
+The [Makefile] is still a work-in-progress, but to build, you can just do:
+
+```sh
+g++ -std=c++23 -fpermissive -Wall src/main.cpp
+```
+
 ## License
 
 GearLang is primarily distributed under the terms of the GPLv3 License. You are allowed to fork it however you want, AS LONG as you keep it open-sourced. 
