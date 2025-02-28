@@ -19,6 +19,8 @@
 // a copy of the GCC Runtime Library Exception along with this program;
 // If not, see <http://www.gnu.org/licenses/>.
 
+#pragma once
+
 #include <functional>
 #include <memory>
 #include <vector>
@@ -41,10 +43,19 @@ namespace std_gearlang::tree {
         ) : parent(par), children(child) { }
 
         virtual auto iterate_parsers(
-            std::span<std::shared_ptr<token::Base>> list,
-            std::vector<std::function<Node(std::weak_ptr<Node>)>> parsers
+            std::span<std::shared_ptr<token::Base>>& list,
+            std::vector<std::function<Node*(std::weak_ptr<Node>)>>& types,
+            std::weak_ptr<Node>& parent
         ) -> std::optional<std::shared_ptr<Node>> const {
+            for(auto& type : types) {
+                Node& object = *type(parent);
 
+                auto result = object.try_parse(list);
+
+                if(result) {
+                    return std::make_shared<>(object);
+                }
+            }
         }
 
     public:
@@ -67,11 +78,11 @@ namespace std_gearlang::tree {
     private:
         const std::vector<std::shared_ptr<token::Base>>& token_list;
         std::vector<std::shared_ptr<token::Base>>::iterator iterator;
-        std::vector<std::function<std::optional<Node>(std::span<std::shared_ptr<token::Base>)>> parsers;
+        std::vector<std::function<std::optional<Node>(std::span<std::shared_ptr<token::Base>>)>> parsers;
 
     public:
         Parser(std::vector<std::shared_ptr<token::Base>>& tokens)
-        : token_list(tokens), iterator(token_list.begin()) { }
+        : token_list(tokens), iterator(tokens.begin()) { }
 
         std::vector<std::shared_ptr<void>> parse() {
             while(iterator++ < token_list.end()) {
