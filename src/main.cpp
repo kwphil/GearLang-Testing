@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
         std::cout << it->get()->get_value() << std::endl;
     }
 
-    std_gearlang::ir::create_start();
+    // std_gearlang::ir::create_start();
 
     // Success
     return std_gearlang::Error::cerr(std_gearlang::ErrorCode::Ok);

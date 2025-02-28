@@ -30,6 +30,6 @@
 #include <vector>
 #include "token.cpp"
 
-namespace std_gearlang::ir {
-    extern void create_start();
-}
+// namespace std_gearlang::ir {
+//     extern void create_start();
+// }

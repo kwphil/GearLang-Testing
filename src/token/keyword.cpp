@@ -42,7 +42,7 @@ namespace std_gearlang::token {
             return std::nullopt;
         }
 
-        static inline TokenType type() {
+        inline TokenType type() const override {
             return TokenType::Return;
         }
 
@@ -69,7 +69,7 @@ namespace std_gearlang::token {
             return std::nullopt;
         }
 
-        inline TokenType type() {
+        inline TokenType type() const override {
             return TokenType::Exit;
         }
 

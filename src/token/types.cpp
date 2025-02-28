@@ -50,7 +50,7 @@ namespace std_gearlang::token {
          *
          * @return A string describing the token type.
          */
-        static inline TokenType type();
+        virtual inline TokenType type() const = 0;
 
         /**
          * Returns a value

@@ -30,6 +30,8 @@ namespace std_gearlang::tree {
         std::weak_ptr<Node> parent;
         std::vector<std::shared_ptr<Node>> children;
 
+        Node() { }
+
         Node(std::weak_ptr<Node> par)
         : parent(par) { }
 
@@ -46,7 +48,7 @@ namespace std_gearlang::tree {
 
         virtual bool try_parse(std::span<std::shared_ptr<token::Base>>) = 0;
 
-        Node& operator=(Node& other) {
+        virtual Node& operator=(Node& other) {
             parent = other.get_parent();
             children = other.get_children();
 

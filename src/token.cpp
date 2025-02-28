@@ -38,7 +38,7 @@ namespace std_gearlang::token {
         std::string value;
 
     public:
-        Number(std::string val) 
+        Number(std::string val)
         : value(val) { }
 
         static std_gearlang::NoErr_Result<std::shared_ptr<Base>> try_parse(std::string_view input) {
@@ -65,7 +65,7 @@ namespace std_gearlang::token {
             return std::make_tuple(std::make_shared<Number>(val), "");
         }
 
-        static inline TokenType type() {
+        inline TokenType type() const override {
             return TokenType::Number;
         }
 
@@ -84,7 +84,7 @@ namespace std_gearlang::token {
             return std::make_tuple(std::make_shared<Semi>(), std::string_view(input.begin()+1, input.length()-1));
         }
 
-        static inline TokenType type() {
+        inline TokenType type() const override {
             return TokenType::Semicolon;
         }
 
