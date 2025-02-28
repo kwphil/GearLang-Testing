@@ -65,7 +65,7 @@ namespace std_gearlang::token {
          * @param input The input string to parse.
          * @return A NoErr_Result containing the parsed token or nullopt if no token is matched.
          */
-        static auto -> try_parse(std::string_view input) -> std_gearlang::NoErr_Result<std::shared_ptr<Base>>;
+        static auto try_parse(std::string_view input) -> std_gearlang::NoErr_Result<std::shared_ptr<Base>>;
 
         bool operator==(Base const& other) {
             return type() == other.type();

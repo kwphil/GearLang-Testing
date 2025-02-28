@@ -19,6 +19,7 @@
 // a copy of the GCC Runtime Library Exception along with this program;
 // If not, see <http://www.gnu.org/licenses/>.
 
+#include <functional>
 #include <memory>
 #include <vector>
 #include "../token/types.cpp"
@@ -26,34 +27,30 @@
 namespace std_gearlang::tree {
     class Node {
     protected:
-        Node value;
         std::weak_ptr<Node> parent;
         std::vector<std::shared_ptr<Node>> children;
 
-        Node(Node val, std::weak_ptr<Node> par) 
-        : value(val), parent(par) { }
+        Node(std::weak_ptr<Node> par)
+        : parent(par) { }
 
         Node(
-            Node val, 
-            std::weak_ptr<Node> par, 
+            std::weak_ptr<Node> par,
             std::vector<std::shared_ptr<Node>> child
-        ) : value(val), parent(par), children(child) { }
+        ) : parent(par), children(child) { }
 
     public:
-        virtual ~Node() const = default;    
+        virtual ~Node() = default;
 
-        virtual inline Node& get_value() const { return value };
-        virtual inline std::weak_ptr<Node>& get_parent() const { return parent };
-        virtual inline std::vector<std::shared_ptr<Node>>& get_children() const { return children };
+        virtual inline std::weak_ptr<Node>& get_parent() const { return parent; }
+        virtual inline std::vector<std::shared_ptr<Node>>& get_children() const { return children; }
 
         virtual bool try_parse(std::span<std::shared_ptr<token::Base>>) = 0;
 
         Node& operator=(Node& other) {
-            value = other.get_value();
             parent = other.get_parent();
             children = other.get_children();
 
-            return this
+            return this;
         }
     };
 

@@ -48,8 +48,6 @@ int main(int argc, char *argv[]) {
         std::cout << it->get()->get_value() << std::endl;
     }
 
-    std_gearlang::Compiler::test(output);
-
     std_gearlang::ir::create_start();
 
     // Success
