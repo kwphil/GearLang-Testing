@@ -35,6 +35,8 @@ namespace std_gearlang::tree {
                     // iterate_parsers(token_list, {});
                 }
             }
+
+            return false;
         }
     };
 }

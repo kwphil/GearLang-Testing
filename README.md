@@ -1,4 +1,17 @@
-# GearLang
+<div align="center">
+    <img src="doc/src/gearlang_logo.png" alt="GearLang Logo" width="300"/>
+<br/>
+<br>
+<h1>GearLang</h1>
+</div>
+<p align="center">
+    <a href="LICENSE">
+        <img alt="GitHub License" src="https://img.shields.io/github/license/kwphil/GearLang">
+    </a>
+    <a href="https://github.com/kwphil/GearLang/releases">
+        <img alt="GitHub release" src="https://img.shields.io/github/release/kwphil/GearLang.svg">
+    </a>
+</p>
 
 This is the main source code repository for GearLang. It will contain the std library, and docs.
 
@@ -9,11 +22,11 @@ This project is **UNDER DEVELOPMENT**. You can contribute by forking the repo an
 - **Performance:** Fast and easily optimizable, suitable for OS development and Systems Programming.
 - **Easy Readability:** Offers a clean and flexible syntax, built for being read by humans.
 
-## Why not C? 
+## Why not C?
 
 C is an amazing language, don't get me wrong. But it is very easy to shoot your foot off. GearLang attempts to solve this using a few different tactics.
 
-### Comptime Checks 
+### Comptime Checks
 
 `comptime checks`, can automatically run tests during the compilation process to prevent as many bugs as possible.
 
@@ -59,7 +72,7 @@ fn main {
 }
 ```
 
-## Building 
+## Building
 
 The [Makefile] is still a work-in-progress, but to build, you can just do:
 
@@ -69,7 +82,7 @@ g++ -std=c++23 -fpermissive -Wall src/main.cpp
 
 ## License
 
-GearLang is primarily distributed under the terms of the GPLv3 License. You are allowed to fork it however you want, AS LONG as you keep it open-sourced. 
+GearLang is primarily distributed under the terms of the GPLv3 License. You are allowed to fork it however you want, AS LONG as you keep it open-sourced.
 
 ## Examples
 

@@ -56,6 +56,8 @@ namespace std_gearlang::tree {
                     return std::make_shared<Node>(object);
                 }
             }
+
+            return std::nullopt;
         }
 
     public:
@@ -88,6 +90,8 @@ namespace std_gearlang::tree {
             while(iterator++ < token_list.end()) {
 
             }
+
+            return {};
         }
 
         static inline std::vector<std::shared_ptr<void>> parse(std::vector<std::shared_ptr<token::Base>>& tokens) {
