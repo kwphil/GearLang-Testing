@@ -27,6 +27,12 @@
 #include "../token/types.cpp"
 
 namespace std_gearlang::tree {
+    // Defining a concept to restrict nodes
+    template<class T>
+    concept ParseableNode = requires(T t, std::span<std::shared_ptr<token::Base>> list) {
+        { t.try_parse(list) } -> std::convertible_to<bool>;
+    };
+
     class Node {
     protected:
         std::weak_ptr<Node> parent;
@@ -46,14 +52,13 @@ namespace std_gearlang::tree {
             std::span<std::shared_ptr<token::Base>>& list,
             std::vector<std::function<Node*(std::weak_ptr<Node>)>>& types,
             std::weak_ptr<Node>& parent
-        ) -> std::optional<std::shared_ptr<Node>> const {
+        ) -> std::optional<std::shared_ptr<Node>> {
             for(auto& type : types) {
                 Node& object = *type(parent);
-
                 auto result = object.try_parse(list);
 
                 if(result) {
-                    return std::make_shared<Node>(object);
+                    return std::make_shared<std::decay_t<decltype(object)>>(object);
                 }
             }
 
@@ -68,7 +73,7 @@ namespace std_gearlang::tree {
 
         virtual bool try_parse(std::span<std::shared_ptr<token::Base>>) = 0;
 
-        virtual Node& operator=(Node& other) {
+        Node& operator=(Node& other) {
             parent = other.get_parent();
             children = other.get_children();
 
