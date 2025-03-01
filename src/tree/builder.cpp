@@ -53,7 +53,7 @@ namespace std_gearlang::tree {
                 auto result = object.try_parse(list);
 
                 if(result) {
-                    return std::make_shared<>(object);
+                    return std::make_shared<Node>(object);
                 }
             }
         }

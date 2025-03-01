@@ -19,22 +19,31 @@
 // a copy of the GCC Runtime Library Exception along with this program;
 // If not, see <http://www.gnu.org/licenses/>.
 
-#include <memory>
+#include <cstdlib>
 #include <span>
 #include "../token/types.cpp"
-#include "builder.cpp"
+#include "statement.cpp"
 
 namespace std_gearlang::tree {
-    class Statement : public Node {
+    class Exit : public Statement {
+    private:
+        int code;
+
     public:
         bool try_parse(std::span<std::shared_ptr<token::Base>> token_list) override {
-            for(auto& token : token_list ) {
-                if(*token == token::TokenType::Semicolon) {
-                    auto subspan = token_list.subspan(0, token_list.size()-2);
+            auto& keyword = *token_list[0];
+            auto& num     = *token_list[1];
 
-                    // iterate_parsers(token_list, {});
-                }
+            if(
+                keyword == token::TokenType::Exit &&
+                num == token::TokenType::Number
+            ) {
+                code = std::stoi(num.get_value());
+
+                return true;
             }
+
+            return false;
         }
     };
 }
