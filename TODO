@@ -5,9 +5,3 @@
     * **Status** - Not Started
     * **Priority** - Low
     * **Notes** - Probably a better way to do it than what I did (src/result.cpp)
-
-2. [ ] std_gearlang::tree::Node::iterate_parsers
-    * **Description** - The function has a whole bunch of errors, see [here](doc/log/28_2_25.error.log) for details
-    * **Status** - In Progress
-    * **Priority** - High
-    * **Notes** - IDK yet

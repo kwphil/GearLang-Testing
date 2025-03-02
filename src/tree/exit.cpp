@@ -7,6 +7,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 
+#pragma once
+
 #include <cstdlib>
 #include <span>
 #include "../token/types.cpp"

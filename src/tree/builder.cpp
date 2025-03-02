@@ -15,11 +15,10 @@
 #include "../token/types.cpp"
 
 namespace std_gearlang::tree {
-    // Defining a concept to restrict nodes
-    template<class T>
-    concept ParseableNode = requires(T t, std::span<std::shared_ptr<token::Base>> list) {
-        { t.try_parse(list) } -> std::convertible_to<bool>;
-    };
+    template<class T, class... Params>
+    constexpr inline std::unique_ptr<T> object_factory(Params&&... params) {
+        return std::make_unique<T>(std::forward<Params>(params)...);
+    }
 
     class Node {
     protected:
@@ -36,22 +35,7 @@ namespace std_gearlang::tree {
             std::vector<std::shared_ptr<Node>> child
         ) : parent(par), children(child) { }
 
-        virtual auto iterate_parsers(
-            std::span<std::shared_ptr<token::Base>>& list,
-            std::vector<std::function<Node*(std::weak_ptr<Node>)>>& types,
-            std::weak_ptr<Node>& parent
-        ) -> std::optional<std::shared_ptr<Node>> {
-            for(auto& type : types) {
-                Node& object = *type(parent);
-                auto result = object.try_parse(list);
-
-                if(result) {
-                    return std::make_shared<std::decay_t<decltype(object)>>(object);
-                }
-            }
-
-            return std::nullopt;
-        }
+        // Removing iterate_parsers because it seems to only be making more problems
 
     public:
         virtual ~Node() = default;
