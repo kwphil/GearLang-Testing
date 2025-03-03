@@ -1,4 +1,4 @@
-// <gearlang/include/lexer> -*- C++ -*-
+// <gearlang/src/parse.cpp> -*- C++ -*-
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -7,22 +7,11 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so.
 
-#pragma once
-
-#include <concept>
-#include <utility>
-#include "string.h"
-
-#define PARSER(x) (identifier x(char*) -> std::pair<basic_string,char*>)
-
-namespace gearlang {
-    enum class Token {
-        IDENTIFIER,
-    }
-}
+#include <cstdlib>
+#include <gearlang/token>
 
 namespace gearlang::parser {
-    extern PARSER(identifier);
-    extern PARSER(number);
-    extern PARSER(exit);
+    PARSER(identifier) {
+        
+    }
 }

@@ -24,5 +24,24 @@ typedef struct {
 
 #ifndef __cplusplus
 }
+
+namespace gearlang {
+    class String {
+    private:
+        basic_string input;
+
+    public:
+        String(char* input)
+        : input({.ptr=input,.extent=std::strlen(input)}) { }
+
+        template<class T>
+        std::vector<T> map([](char) f) {
+            for(int i = 0; input[i] != '\0'; ++i) {
+                f()
+            }
+        }
+    }
+} 
+
 #endif
 #endif STRING_H
