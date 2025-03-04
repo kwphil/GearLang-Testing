@@ -1,0 +1,47 @@
+// <gearlang/include/lexer> -*- C++ -*-
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so.
+
+#pragma once
+
+#include <concepts>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <gearlang/token>
+
+namespace gearlang
+{
+    template <class st = char*>
+    requires StringType<st>
+    class Lexer
+    {
+    private:
+        size_t col;
+        size_t row;
+
+    protected:
+        st full_input;
+        st input;
+
+    public:
+        Lexer(st s)
+        : full_input(input), input(s), col(0), row(0)
+        { }
+
+        inline char peek() { return peek_(input); }
+        inline char prev() { return prev_(input); }
+        inline char next() { return next_(input); }
+        inline char advance() { move_(input, 1); return peek_(input); }
+        inline char advance(size_t count) { move_(input, count); return peek_(input); }
+
+        Token next_token() {
+
+        }
+    };
+}
