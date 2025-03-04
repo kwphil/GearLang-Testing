@@ -11,6 +11,8 @@
 #ifndef STRING_H
 #define STRING_H
 
+#include <string.h>
+
 #define st_ char*
 
 #ifdef __cplusplus
@@ -18,12 +20,15 @@ extern "C" {
 #endif
 
 typedef struct {
-    char* ptr,
-    size_t extent
+    st_ ptr;
+    size_t extent;
 } basic_string;
 
-#ifndef __cplusplus
+#ifdef __cplusplus
 }
+
+#include <vector>
+#include <gearlang/lexer>
 
 namespace gearlang {
     class String {
@@ -32,16 +37,20 @@ namespace gearlang {
 
     public:
         String(char* input)
-        : input({.ptr=input,.extent=std::strlen(input)}) { }
+        : input({.ptr=input,.extent=strlen(input)}) { }
 
-        template<class T>
-        std::vector<T> map([](char) f) {
+        template<class T, class Func>
+        std::vector<T> map(Func f) {
+            std::vector<T> out;
+
             for(int i = 0; input[i] != '\0'; ++i) {
-                f()
+                out.push(f());
             }
+
+
         }
-    }
-} 
+    };
+}
 
 #endif
-#endif STRING_H
+#endif

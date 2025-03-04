@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     if(argc < 2) {
         std::cout << "No file has been selected" << std::endl;
 
-        return gearlang::cerr(gearlang::error::INVALID_PARAMS);
+        return gearlang::cerr(gearlang::error::INVALID_PARAM);
     }
 
     // Success

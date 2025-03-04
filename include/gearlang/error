@@ -12,9 +12,9 @@
 #include <bit>
 #include <expected>
 
-namespace gearlang 
+namespace gearlang
 {
-    enum class error 
+    enum class error
     {
         OK,
         INVALID_PARAM
@@ -23,9 +23,8 @@ namespace gearlang
     template <class T>
     using result = std::expected<T, error>;
 
-    template <class T>
-    constexpr int cerr(error e) 
-    {  
-        std::bit_cast<int>(e);
-    } 
+    constexpr int cerr(error e)
+    {
+        return std::bit_cast<int>(e);
+    }
 }

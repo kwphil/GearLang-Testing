@@ -13,9 +13,10 @@
 #include <string>
 #include <vector>
 #include <cstring>
+#include "token"
 
 template <class T>
-concept StringType = 
+concept StringType =
     std::convertible_to<T, char*>;
 
 extern "C" {
@@ -25,11 +26,11 @@ extern "C" {
     char move_(char*,ssize_t);
 }
 
-namespace gearlang 
+namespace gearlang
 {
     template <class st = char*>
     requires StringType<st>
-    class Lexer 
+    class Lexer
     {
     private:
         size_t col;
@@ -40,7 +41,7 @@ namespace gearlang
         st input;
 
     public:
-        Lexer(st s) 
+        Lexer(st s)
         : full_input(input), input(s), col(0), row(0), pos(0)
         { }
 
@@ -53,5 +54,5 @@ namespace gearlang
         Token next_token() {
 
         }
-    }
+    };
 }

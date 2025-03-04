@@ -15,6 +15,6 @@
  * So I made these real quick for it
  */
 char peek_(st_ input) { *input; }
-char prev_(st_ input) { *((size_t)input-1); }
-char next_(st_ input) { *((size_t)input+1); }
-char move_(st_ input, ssize_t count) { *((size_t)input+=count); }
+char prev_(st_ input) { *(char*)((size_t)input-1); }
+char next_(st_ input) { *(char*)((size_t)input+1); }
+char move_(st_ input, ssize_t count) { *(char*)((size_t)input+=count); }
