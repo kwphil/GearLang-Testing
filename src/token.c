@@ -14,7 +14,8 @@
 /* The bit conversions would quickly become unreadable
  * So I made these real quick for it
  */
-char peek_(st_ input) { *input; }
-char prev_(st_ input) { *(char*)((size_t)input-1); }
-char next_(st_ input) { *(char*)((size_t)input+1); }
-char move_(st_ input, ssize_t count) { *(char*)((size_t)input+=count); }
+char peek_(st_ input) { return *input; }
+char peek_at_(st_ input, size_t at) { return input[at]; }
+char prev_(st_ input) { return *(char*)((size_t)input-1); }
+char next_(st_ input) { return *(char*)((size_t)input+1); }
+char move_(st_ input, ssize_t count) { return *(char*)(input+=count); }

@@ -12,8 +12,16 @@
 
 namespace gearlang::parser {
     PARSER identifier(char* input) {
+        std::string out;
+
         for(int i = 0; input[i] != '\0'; ++i) {
-            if(std::isalpha(input[i]))
-        } 
+            if(!std::isalpha(input[i])) {
+
+            }
+
+            out.push_back(input[i]);
+
+            ++input;
+        }
     }
 }

@@ -13,18 +13,7 @@
 #include <string>
 #include <vector>
 #include <cstring>
-#include "token"
-
-template <class T>
-concept StringType =
-    std::convertible_to<T, char*>;
-
-extern "C" {
-    char peek_(char*);
-    char next_(char*);
-    char prev_(char*);
-    char move_(char*,ssize_t);
-}
+#include <gearlang/token>
 
 namespace gearlang
 {
@@ -42,14 +31,14 @@ namespace gearlang
 
     public:
         Lexer(st s)
-        : full_input(input), input(s), col(0), row(0), pos(0)
+        : full_input(input), input(s), col(0), row(0)
         { }
 
-        inline char peek() { peek_(input); }
-        inline char prev() { prev_(input); }
-        inline char next() { next_(input); }
-        inline char advance() { move_(input, 1); peek_(input); }
-        inline char advance(size_t count) { move_(input, count); peek_(input); }
+        inline char peek() { return peek_(input); }
+        inline char prev() { return prev_(input); }
+        inline char next() { return next_(input); }
+        inline char advance() { move_(input, 1); return peek_(input); }
+        inline char advance(size_t count) { move_(input, count); return peek_(input); }
 
         Token next_token() {
 

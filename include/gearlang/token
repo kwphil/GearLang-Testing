@@ -13,7 +13,7 @@
 #include <utility>
 #include "string.h"
 
-#define PARSER (std::pair<basic_string,char*>)
+typedef std::pair<basic_string,char*> PARSER;
 
 namespace gearlang {
     enum class Token {

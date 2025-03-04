@@ -27,8 +27,21 @@ typedef struct {
 #ifdef __cplusplus
 }
 
+#include <concepts>
+#include <stdexcept>
 #include <vector>
-#include <gearlang/lexer>
+
+template <class T>
+concept StringType =
+    std::convertible_to<T, char*>;
+
+extern "C" {
+    char peek_(char*);
+    char peek_at_(char*,size_t);
+    char next_(char*);
+    char prev_(char*);
+    char move_(char*,ssize_t);
+}
 
 namespace gearlang {
     class String {
@@ -36,19 +49,29 @@ namespace gearlang {
         basic_string input;
 
     public:
-        String(char* input)
+        String(char* input = "")
         : input({.ptr=input,.extent=strlen(input)}) { }
 
         template<class T, class Func>
         std::vector<T> map(Func f) {
             std::vector<T> out;
 
-            for(int i = 0; input[i] != '\0'; ++i) {
+            for(int i = 0; input.ptr[i] != '\0'; ++i) {
                 out.push(f());
             }
 
 
         }
+
+        char operator[](size_t index) {
+            if(index > input.extent+1) {
+                throw std::out_of_range("hee hee hee haw");
+            }
+
+            return peek_at_(input.ptr, index);
+        }
+
+        inline char operator[](int index) { return operator[]((size_t)index); }
     };
 }
 
