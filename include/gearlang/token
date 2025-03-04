@@ -13,7 +13,9 @@
 #include <utility>
 #include "string.h"
 
-typedef std::pair<basic_string,char*> PARSER;
+typedef std::pair<basic_string,char*> PARSER_TYPE;
+#define PARSER(name,impl) (PARSER_TYPE name(char*) impl)
+#define PARSE_HEADER(name) (PARSER_TYPE name(char*);)
 
 namespace gearlang {
     enum class Token {
@@ -22,7 +24,7 @@ namespace gearlang {
 }
 
 namespace gearlang::parser {
-    extern PARSER identifier(char*);
-    extern PARSER number(char*);
-    extern PARSER exit(char*);
+    extern PARSE_HEADER(identifier);
+    extern PARSE_HEADER(number);
+    extern PARSE_HEADER(exit);
 }

@@ -11,7 +11,7 @@
 #include <gearlang/token>
 
 namespace gearlang::parser {
-    PARSER identifier(char* input) {
+    PARSER(identifier, {
         std::string out;
 
         for(int i = 0; input[i] != '\0'; ++i) {
@@ -23,5 +23,5 @@ namespace gearlang::parser {
 
             ++input;
         }
-    }
+    })
 }

@@ -10,17 +10,21 @@
 #pragma once
 
 #include <concepts>
+#include <functional>
 #include <string>
 #include <vector>
 #include <cstring>
 #include <gearlang/token>
 
-namespace gearlang
-{
+template <class T, class L>
+add_item(L list, T item) { list.push_back(item) }
+
+namespace gearlang {
+    std::vector<std::function<PARSER_TYPE(char*)>> parser_list;
+
     template <class st = char*>
     requires StringType<st>
-    class Lexer
-    {
+    class Lexer {
     private:
         size_t col;
         size_t row;
