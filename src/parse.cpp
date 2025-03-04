@@ -11,7 +11,9 @@
 #include <gearlang/token>
 
 namespace gearlang::parser {
-    PARSER(identifier) {
-        
+    PARSER identifier(char* input) {
+        for(int i = 0; input[i] != '\0'; ++i) {
+            if(std::isalpha(input[i]))
+        } 
     }
 }

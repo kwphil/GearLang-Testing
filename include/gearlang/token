@@ -13,16 +13,16 @@
 #include <utility>
 #include "string.h"
 
-#define PARSER(x) (identifier x(char*) -> std::pair<basic_string,char*>)
+#define PARSER (std::pair<basic_string,char*>)
 
 namespace gearlang {
     enum class Token {
         IDENTIFIER,
-    }
+    };
 }
 
 namespace gearlang::parser {
-    extern PARSER(identifier);
-    extern PARSER(number);
-    extern PARSER(exit);
+    extern PARSER identifier(char*);
+    extern PARSER number(char*);
+    extern PARSER exit(char*);
 }

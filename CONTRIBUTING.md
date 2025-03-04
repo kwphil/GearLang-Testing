@@ -4,12 +4,12 @@ Contributing will always be a huge help for us. Here are the guidelines!
 
 ## Got a question or problem?
 
-RESOURCES at [the docs](doc) might help you (WARNING: there isn't a lot). 
+RESOURCES at [the docs](doc) might help you (WARNING: there isn't a lot).
 
 If you have further questions that the docs won't tell you, you can be redirected to one of my accounts:
 
-[GitHub](https://www.github.com/kwphil)
-[E-Mail](phillips1980@gmail.com)
+[GitHub](https://www.github.com/kwphil) \
+[E-Mail](phillips1980@gmail.com) \
 [Reddit (if you must)](https://www.reddit.com/user/GayHomophobe1)
 
 ## Found a bug?

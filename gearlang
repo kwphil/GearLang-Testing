@@ -10,20 +10,20 @@
 # furnished to do so, subject to the following conditions:
 
 usage() {
-    echo "Usage: $0 [-v|--verbose] <input file>"
-    exit 1
+  echo "Usage: $0 [-v|--verbose] <input file>"
+  exit 1
 }
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -v|--verbose)
-      VERBOSE=true
-      shift
-      ;;
-    *)
-      echo "Unknown option: $1"
-      usage
-      ;;
+  -v|--verbose)
+    VERBOSE=true
+    shift
+    ;;
+  *)
+    echo "Unknown option: $1"
+    usage
+    ;;
   esac
 done
 
